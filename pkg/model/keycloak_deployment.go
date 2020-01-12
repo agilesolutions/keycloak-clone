@@ -63,7 +63,7 @@ func KeycloakDeployment(cr *v1alpha1.Keycloak) *v13.StatefulSet {
 								// Database settings
 								{
 									Name:  "DB_VENDOR",
-									Value: "POSTGRES",
+									Value: "H2",
 								},
 								{
 									Name:  "DB_SCHEMA",
@@ -234,7 +234,7 @@ func KeycloakDeploymentReconciled(cr *v1alpha1.Keycloak, currentState *v13.State
 				// Database settings
 				{
 					Name:  "DB_VENDOR",
-					Value: "POSTGRES",
+					Value: "H2",
 				},
 				{
 					Name:  "DB_SCHEMA",
