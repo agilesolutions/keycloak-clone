@@ -46,8 +46,8 @@ make setup
 GOTO [kubernetes playground](https://www.katacoda.com/courses/kubernetes/playground)
 
 ```
-git clone https://github.com/agilesolutions/keycloak-operator.git
-cd keycloak-operator
+git clone https://github.com/agilesolutions/keycloak-clone.git
+cd keycloak-clone
 kubectl apply -f deploy/crds/
 kubectl create namespace keycloak
 kubectl apply -f deploy/role.yaml -n keycloak
