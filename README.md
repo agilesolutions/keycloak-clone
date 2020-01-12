@@ -6,6 +6,65 @@
 # Keycloak Operator
 A Kubernetes Operator based on the Operator SDK for creating and syncing resources in Keycloak.
 
+## Install Go and Operator SDK
+
+LEARN ABOUT [Operator Framework](https://www.katacoda.com/openshift/courses/operatorframework)
+
+GOTO [katacoda and run this](https://www.katacoda.com/courses/kubernetes/launch-single-node-cluster)
+
+```
+curl -LO https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.13.5.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+mkdir /root/go
+export GOPATH=/root/go
+export GOBIN=/usr/local/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+go env GOPATH
+
+curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+
+
+mkdir -p $GOPATH/src/github.com/operator-framework
+cd $GOPATH/src/github.com/operator-framework
+git clone https://github.com/operator-framework/operator-sdk
+cd operator-sdk
+git checkout master
+make dep
+make install
+
+mkdir -p $GOPATH/src/github.com/agilesolutions/agilesolutions
+cd $GOPATH/src/github.com/agilesolutions
+git clone https://github.com/agilesolutions/keycloak-operator.git
+cd keycloak-operator
+make setup
+
+```
+
+## running controller
+
+GOTO [kubernetes playground](https://www.katacoda.com/courses/kubernetes/playground)
+
+```
+git clone https://github.com/agilesolutions/keycloak-operator.git
+cd keycloak-operator
+kubectl apply -f deploy/crds/
+kubectl create namespace keycloak
+kubectl apply -f deploy/role.yaml -n keycloak
+kubectl apply -f deploy/role_binding.yaml -n keycloak
+kubectl apply -f deploy/service_account.yaml -n keycloak
+kubectl apply -f deploy/operator.yaml  -n keycloak
+kubectl apply -f deploy/examples/keycloak/keycloak.yaml -n keycloak
+kubectl apply -f deploy/examples/realm/realm_with_users.yaml -n keycloak
+watch kubectl get all -n keycloak
+
+
+make cluster/prepare
+make cluster/create/examples
+
+make cluster/clean
+```
+
 ## Help and Documentation
 
 The documentation might be found in the  [docs](./docs/README.asciidoc) directory.
